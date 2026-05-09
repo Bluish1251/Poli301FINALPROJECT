@@ -1,5 +1,5 @@
 library(tidyverse)
-qog <- read.csv("poli301dataset.csv")
+qog <- read.csv("qog_std_ts_jan26.csv") #qog dataset 
 
 qog_clean <- filter(qog, year >= 1990 & year <= 2025) # only keeps rows with year cond met & dropping blank column
 qog_clean <- drop_na(qog_clean, al_ethnic2000, p_polity2, wdi_gdpcapcon2015, wdi_pop)
@@ -13,6 +13,6 @@ qog_clean <- mutate(qog_clean,
 # nrow(qog_clean)
 # summary(qog_clean) #testing R functions
 
-write.csv(qog_clean, "qog_cleaned222222.csv", row.names = FALSE)
+write.csv(qog_clean, "qog_cleaned.csv", row.names = FALSE)
 
 # dv on file 'qog_unga.r'

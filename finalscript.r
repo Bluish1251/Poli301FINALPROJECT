@@ -17,7 +17,6 @@ plot(final_data$al_ethnic2000, final_data$unga_alignment,
     pch = 16, col = "steelblue")
 abline(lm(unga_alignment ~ al_ethnic2000, data = final_data), col = "red")
 
-# --- OLS regression ---
 
 # full model with controls
 model <- lm(unga_alignment ~ al_ethnic2000 + p_polity2 + log_gdp + log_pop, data = final_data)
