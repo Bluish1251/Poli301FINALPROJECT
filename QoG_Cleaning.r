@@ -15,4 +15,4 @@ qog_clean <- mutate(qog_clean,
 
 write.csv(qog_clean, "qog_cleaned.csv", row.names = FALSE)
 
-# dv on file 'qog_unga.r'
+# dv creation on file 'qog_unga.r'

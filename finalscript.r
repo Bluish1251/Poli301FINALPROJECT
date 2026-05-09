@@ -1,23 +1,28 @@
 library(tidyverse)
-
-# load final merged dataset
 final_data <- read.csv("final_dataset.csv")
 
-# --- bivariate analysis ---
-
-# correlation test: ethnic fractionalization vs unga alignment
-cor_result <- cor.test(final_data$al_ethnic2000, final_data$unga_alignment)
+# bivariate analysis/correlation test
+cor_result <- cor.test(~ al_ethnic2000 + unga_alignment, data = final_data)
 print(cor_result)
 
 # scatterplot with regression line
-plot(final_data$al_ethnic2000, final_data$unga_alignment,
-    xlab = "Ethnic Fractionalization (al_ethnic2000)",
-    ylab = "UNGA Alignment with Western Bloc",
-    main = "Ethnic Fractionalization vs. UNGA Voting Alignment",
-    pch = 16, col = "steelblue")
-abline(lm(unga_alignment ~ al_ethnic2000, data = final_data), col = "red")
+png("scatterplot.png", width = 900, height = 600, res = 100)
 
+plot(unga_alignment ~ al_ethnic2000, data = final_data,
+    xlab = "Ethnic Fractionalization (0 = homogeneous, 1 = very diverse)",
+    ylab = "Voting Alignment with West (0 = never, 1 = always)",
+    main = "Ethnic Fractionalization and UNGA Voting Alignment",
+    pch  = 16,
+    col  = adjustcolor("steelblue", alpha = 0.6)) # gradient/transparency for better visibility
 
-# full model with controls
+abline(lm(unga_alignment ~ al_ethnic2000, data = final_data), col = "red", lwd = 2) # regression line
+dev.off()
+
+# inclusion of all variables in the model
 model <- lm(unga_alignment ~ al_ethnic2000 + p_polity2 + log_gdp + log_pop, data = final_data)
 summary(model)
+
+# saving regression as text and printing to console (for prototyping)
+sink("regression_output.txt")
+print(summary(model))
+sink()

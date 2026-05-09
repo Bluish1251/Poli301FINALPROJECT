@@ -8,7 +8,7 @@ unga_votes <- filter(unga, ms_vote %in% c("Y", "N", "A"))
 # %in% - is it equal/true to (wtvr is after)
 
 # get western bloc votes per resolution, find majority position
-western_bloc <- c("USA", "GBR", "FRA", "DEU")
+western_bloc <- c("USA", "GBR", "FRA", "DEU") #combinding western bloc into vector (shouldve done canada)
 western_votes <- filter(unga_votes, ms_code %in% western_bloc)
 unga_votes <- filter(unga_votes, !(ms_code %in% western_bloc))
 
@@ -25,8 +25,11 @@ unga_votes <- mutate(unga_votes, aligned = as.integer(ms_vote == western_pos))
 alignment <- aggregate(aligned ~ ms_code + year, data = unga_votes, FUN = mean)
 colnames(alignment) <- c("ccodealp", "year", "unga_alignment")
 
+#ALIGNMENT EQUATION: Alignment(country, year) = (aligned votes) / (total votes)
+#aligned = 1 if country's vote matches west majority, 0 if vice versa
+
 final_data <- merge(qog, alignment, by = c("ccodealp", "year"))
-#merged uncleaned data on accident
+#merged allignment data, for the final dataset building
 
 write.csv(final_data, "final_dataset.csv", row.names = FALSE)
 # analysis on file 'finalscript.r'
