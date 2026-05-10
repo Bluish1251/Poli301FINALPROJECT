@@ -2,12 +2,12 @@ library(tidyverse)
 qog <- read.csv("qog_cleaned.csv")
 unga <- read.csv("2026_02_06_ga_voting.csv")
 
-# pull year out of date col and drop absent/non-voting rows
+# pull year out of date col and drop absent rows
 unga <- mutate(unga, year = as.integer(substr(date, 1, 4)))
 unga_votes <- filter(unga, ms_vote %in% c("Y", "N", "A"))
 # %in% - is it equal/true to (wtvr is after)
 
-# get western bloc votes per resolution, find majority position
+# get western bloc votes per resolution
 western_bloc <- c("USA", "GBR", "FRA", "DEU") #combinding western bloc into vector (shouldve done canada)
 western_votes <- filter(unga_votes, ms_code %in% western_bloc)
 unga_votes <- filter(unga_votes, !(ms_code %in% western_bloc))

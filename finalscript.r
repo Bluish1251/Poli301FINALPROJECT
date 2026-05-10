@@ -26,3 +26,12 @@ summary(model)
 sink("regression_output.txt")
 print(summary(model))
 sink()
+
+# case study (Japan and Nigeria)
+nigeria <- filter(final_data, ccodealp == "NGA")
+japan <- filter(final_data, ccodealp == "JPN")
+
+sink("case_study_output.txt")
+print(summary(nigeria))
+print(summary(japan))
+sink()
