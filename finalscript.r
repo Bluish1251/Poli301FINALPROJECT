@@ -3,7 +3,10 @@ final_data <- read.csv("final_dataset.csv")
 
 # bivariate analysis/correlation test
 cor_result <- cor.test(~ al_ethnic2000 + unga_alignment, data = final_data)
+#print(cor_result)
+sink("correlation_output.txt")
 print(cor_result)
+sink()
 
 # scatterplot with regression line
 png("scatterplot.png", width = 900, height = 600, res = 100)
